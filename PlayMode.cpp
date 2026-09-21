@@ -7,6 +7,8 @@
 #include "Load.hpp"
 #include "gl_errors.hpp"
 #include "data_path.hpp"
+#include "load_save_png.hpp"
+#include "TextRenderer.hpp"
 
 #include <glm/gtc/type_ptr.hpp>
 
@@ -32,7 +34,6 @@ Load< Scene > VN_scene(LoadTagDefault, []() -> Scene const * {
 		drawable.pipeline.type = mesh.type;
 		drawable.pipeline.start = mesh.start;
 		drawable.pipeline.count = mesh.count;
-
 	});
 });
 
@@ -54,6 +55,47 @@ PlayMode::PlayMode() : scene(*VN_scene) {
 	//start music loop playing:
 	// (note: position will be over-ridden in update())
 	leg_tip_loop = Sound::loop_3D(*dusty_floor_sample, 1.0f, glm::vec3(0.0, 0.0, 0.0), 10.0f);
+
+	// overwrite the texture of one mesh
+
+	for (Scene::Drawable &drawable : scene.drawables) {
+		if (drawable.transform->name == "Text") {
+			GLuint tex;
+			glGenTextures(1, &tex);
+
+			glBindTexture(GL_TEXTURE_2D, tex);
+
+			// std::vector< glm::u8vec4 > tex_data(0);
+			// glm::uvec2 img_size({694, 694});
+			// load_png(data_path("images/example.png"), &img_size, &tex_data, LowerLeftOrigin);
+
+			// alt. text rendering
+			TextRenderer renderer = TextRenderer("filibuster!\nWOW", data_path("font/NotoSerif.ttf"));
+			size_t h, w;
+			std::vector< glm::u8vec4 > tex_data = renderer.Rasterize(6, w, h);
+
+			glTexImage2D(
+				GL_TEXTURE_2D, 0, GL_SRGB8_ALPHA8, // my image is sRGB?
+				w, h,   // XXX
+				0, GL_RGBA, GL_UNSIGNED_BYTE, tex_data.data());
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+			glBindTexture(GL_TEXTURE_2D, 0);
+
+			drawable.pipeline.textures[0].texture = tex;
+			drawable.pipeline.textures[0].target = GL_TEXTURE_2D;
+			drawable.blended = true;
+
+			drawable.pipeline.set_uniforms = []() {
+				glUniform4fv(lit_color_texture_program->TINT_vec4, 1, glm::value_ptr(glm::vec4(1.0f)));
+				glUniform1i(lit_color_texture_program->LIGHT_TYPE_int, 4);
+				glUniform3f(lit_color_texture_program->LIGHT_DIRECTION_vec3, 0.0f, 0.0f, -1.0f);
+				glUniform3f(lit_color_texture_program->LIGHT_ENERGY_vec3, 0.0f, 0.0f, 0.0f);
+			};
+		}
+	}
 }
 
 PlayMode::~PlayMode() {
@@ -123,6 +165,35 @@ bool PlayMode::handle_event(SDL_Event const &evt, glm::uvec2 const &window_size)
 }
 
 void PlayMode::update(float elapsed) {
+
+	//move camera:
+	{
+
+		//combine inputs into a move:
+		constexpr float PlayerSpeed = 30.0f;
+		glm::vec2 move = glm::vec2(0.0f);
+		if (left.pressed && !right.pressed) move.x =-1.0f;
+		if (!left.pressed && right.pressed) move.x = 1.0f;
+		if (down.pressed && !up.pressed) move.y =-1.0f;
+		if (!down.pressed && up.pressed) move.y = 1.0f;
+
+		//make it so that moving diagonally doesn't go faster:
+		if (move != glm::vec2(0.0f)) move = glm::normalize(move) * PlayerSpeed * elapsed;
+
+		glm::mat4x3 frame = camera->transform->make_parent_from_local();
+		glm::vec3 frame_right = frame[0];
+		//glm::vec3 up = frame[1];
+		glm::vec3 frame_forward = -frame[2];
+
+		camera->transform->position += move.x * frame_right + move.y * frame_forward;
+	}
+
+	{ //update listener to camera position:
+		glm::mat4x3 frame = camera->transform->make_parent_from_local();
+		glm::vec3 frame_right = frame[0];
+		glm::vec3 frame_at = frame[3];
+		Sound::listener.set_position_right(frame_at, frame_right, 1.0f / 60.0f);
+	}
 
 	//reset button press counters:
 	left.downs = 0;

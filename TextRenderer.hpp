@@ -10,11 +10,17 @@
 #include <vector>
 #include <unordered_map>
 
+#include <hb.h>
+#include <hb-ft.h>
+#include <ft2build.h>
+#include FT_FREETYPE_H
+
 constexpr int FONT_SIZE = 36;
 constexpr int MARGIN = (FONT_SIZE * .5);
 
 // The Text Renderer class; has a method that can render text.
 struct TextRenderer {
+    TextRenderer() = default;
     TextRenderer(std::string const text_to_render, std::string const font_path_name);
     virtual ~TextRenderer();
 

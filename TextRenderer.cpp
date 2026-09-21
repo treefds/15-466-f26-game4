@@ -37,6 +37,8 @@ std::vector< glm::u8vec4 > TextRenderer::Rasterize(size_t length, size_t &width,
     // width and height are return values.
     // The size of the rendered image is dynamic!
 
+    // length is going to be ignored now. due to ligature and stuff
+
     /* Create hb-buffer and populate. */
     hb_buffer_t *hb_buffer;
     hb_buffer = hb_buffer_create ();
@@ -47,49 +49,58 @@ std::vector< glm::u8vec4 > TextRenderer::Rasterize(size_t length, size_t &width,
     hb_shape (hb_font, hb_buffer, NULL, 0);
 
     /* Get glyph information and positions out of the buffer. */
-    unsigned int len = hb_buffer_get_length (hb_buffer);
-    hb_glyph_info_t *info = hb_buffer_get_glyph_infos (hb_buffer, NULL);
-    hb_glyph_position_t *pos = hb_buffer_get_glyph_positions (hb_buffer, NULL);
+    unsigned int len = hb_buffer_get_length(hb_buffer);
+    hb_glyph_info_t *info = hb_buffer_get_glyph_infos(hb_buffer, NULL);
+    hb_glyph_position_t *pos = hb_buffer_get_glyph_positions(hb_buffer, NULL);
 
     /* Rasterize at absolute positions. */
     
     // positions
-    size_t current_x = 0;
-    size_t current_y = 0;
+    float current_x = 0.0f;
+    float current_y = 0.0f;
 
     // freetype stubs
-    FT_GlyphSlot slot = ft_face->glyph;
     FT_Bitmap &bitmap = ft_face->glyph->bitmap;
     FT_Error error;
     
     // ensure length is not too large
     if (text.length() > length) {
+        // unused for now
         length = text.length();
     }
 
     // calculate expected size of the raster
     size_t image_width = 0;
     size_t image_height = 0;
-    for (size_t idx = 0; idx < length; idx++) {
-        current_x += pos[idx].x_advance;
-        current_y += pos[idx].y_advance;
-        image_width = std::max(image_width, current_x + FONT_SIZE * 64);
-        image_height = std::max(image_height, current_y + FONT_SIZE * 64);
+    for (size_t idx = 0; idx < len; idx++) {
+        current_x += pos[idx].x_advance / 64.0;
+        current_y += pos[idx].y_advance / 64.0;
+        image_width = std::max(image_width, static_cast<size_t>(current_x) + FONT_SIZE * 2);
+        image_height = std::max(image_height, static_cast<size_t>(current_y) + FONT_SIZE * 2);
     }
+
+    current_x = 0.0f;
+    current_y = 0.0f;
 
     // make image
     std::vector<glm::u8vec4> image(image_width * image_height);
 
     // Finally, Rasterize
-    for (size_t idx = 0; idx < length; idx++) {
-        hb_codepoint_t gid   = info[idx].codepoint;
-        unsigned int cluster = info[idx].cluster;
-        size_t x_position = current_x + pos[idx].x_offset;
-        size_t y_position = current_y + pos[idx].y_offset;
-
-        // Load a char
-        error = FT_Load_Char(ft_face, text[idx], FT_LOAD_RENDER);
+    for (size_t idx = 0; idx < len; idx++) {
+        // load a glyph (including ligature)
+        error = FT_Load_Glyph(ft_face, info[idx].codepoint, FT_LOAD_RENDER);
+        if (error) {
+            //...
+            printf("Error loading Glyph\n");
+        }
         
+        int x_position_origin = current_x + pos[idx].x_offset;
+        int y_position_origin = current_y + pos[idx].y_offset;
+
+        int x_position = static_cast<int>(x_position_origin) + ft_face->glyph->bitmap_left;
+        // FONT SIZE is the baseline of the font (line below g,q,p...)
+        int y_position = FONT_SIZE - (static_cast<int>(y_position_origin) + ft_face->glyph->bitmap_top);
+
         FT_Int i, j, p, q;
         FT_Int x_max = x_position + bitmap.width;
         FT_Int y_max = y_position + bitmap.rows;
@@ -104,16 +115,14 @@ std::vector< glm::u8vec4 > TextRenderer::Rasterize(size_t length, size_t &width,
                 if (i < 0 || j < 0 ||
                     i >= image_width || j >= image_height)
                     continue;
-
                 // blit
-                uint8_t alpha = bitmap.buffer[q * bitmap.width + p];
-                image[j * image_width + i] = glm::vec4(0xff, 0xff, 0xff, alpha);
+                uint8_t alpha = bitmap.buffer[q * bitmap.pitch + p];
+                image[(image_height - j - 1) * image_width + i] = glm::vec4(0xff, 0xff, 0xff, alpha);
             }
         }
-
         // Advance!
-        current_x += pos[idx].x_advance;
-        current_y += pos[idx].y_advance;
+        current_x += pos[idx].x_advance / 64.0;
+        current_y += pos[idx].y_advance / 64.0;
     }
     
     hb_buffer_destroy (hb_buffer);
