@@ -6,6 +6,13 @@ Design: (TODO: In two sentences or fewer, describe what is new and interesting a
 
 Text Drawing: (TODO: how does the text drawing in this game work? Is text precomputed? Rendered at runtime? What files or utilities are involved?)
 
+I am copying chunks of code from these two examples:
+- https://freetype.org/freetype2/docs/tutorial/example1.c
+  - Rasterization of font using FreeType
+- https://github.com/harfbuzz/harfbuzz-tutorial/blob/master/hello-harfbuzz-freetype.c
+  - Typesetting
+
+
 Choices: (TODO: how does the game store choices and narrative? How are they authored? Anything nifty you want to point out?)
 
 Screen Shot:
