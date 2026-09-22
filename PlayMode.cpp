@@ -458,7 +458,7 @@ PlayMode::StoryParser::StoryParser(std::string const &script): script(script) {
 		}
 	}
 
-	for (int idx = 0; idx < storylines.size(); idx++) {
+	for (size_t idx = 0; idx < storylines.size(); idx++) {
 		if (storylines[idx][0] != '=') {
 			continue;
 		}
@@ -466,11 +466,13 @@ PlayMode::StoryParser::StoryParser(std::string const &script): script(script) {
 		line.erase(0, line.find_first_not_of(' '));
 		tag_to_line[line] = idx;
 	}
+
+	storylines_size = static_cast<int>(storylines.size());
 }
 
 // Handling next line
 std::vector<std::string> PlayMode::StoryParser::get_next_lines(int index_selected) {
-	if (line_num >= storylines.size()) {
+	if (line_num >= storylines_size) {
 		return std::vector<std::string>(0);
 	}
 
@@ -481,7 +483,7 @@ std::vector<std::string> PlayMode::StoryParser::get_next_lines(int index_selecte
 		int option_now = -1;
 		bool found = false;
 		while (option_now < 1 && !found) {
-			if (probe >= storylines.size()) {
+			if (probe >= storylines_size) {
 				break;
 			}
 			// * = option
@@ -494,7 +496,7 @@ std::vector<std::string> PlayMode::StoryParser::get_next_lines(int index_selecte
 			}
 			// selected option; probe for `>`
 			probe++;
-			while (probe < storylines.size()) {
+			while (probe < storylines_size) {
 				if (storylines[probe][0] == '>') {
 					// found the jump flag
 					line_num = probe;
@@ -506,7 +508,7 @@ std::vector<std::string> PlayMode::StoryParser::get_next_lines(int index_selecte
 	} else {
 		// continue to next line first
 		line_num++;
-		while (line_num < storylines.size()) {
+		while (line_num < storylines_size) {
 			if (storylines[line_num][0] == '>' || 
 				storylines[line_num][0] == '~' ||
 				storylines[line_num][0] == '+' ||
@@ -518,7 +520,7 @@ std::vector<std::string> PlayMode::StoryParser::get_next_lines(int index_selecte
 		}
 	}
 	// If line num exceeded again, return nothing
-	if (line_num >= storylines.size()) {
+	if (line_num >= storylines_size) {
 		return std::vector<std::string>(0);
 	}
 
@@ -537,7 +539,7 @@ std::vector<std::string> PlayMode::StoryParser::get_next_lines(int index_selecte
 		// A regular text
 		results.emplace_back(storylines[line_num].substr(1));
 		int probe = line_num + 1;
-		while (probe < storylines.size()) {
+		while (probe < storylines_size) {
 			if (storylines[probe][0] == '>' || 
 				storylines[probe][0] == '~' ||
 				storylines[probe][0] == '+' ||
@@ -557,7 +559,7 @@ std::vector<std::string> PlayMode::StoryParser::get_next_lines(int index_selecte
 		results.emplace_back(storylines[line_num].substr(1));
 		int probe = line_num + 1;
 		int cnt = 0;
-		while (probe < storylines.size()) {
+		while (probe < storylines_size) {
 			if (storylines[probe][0] == '~' ||
 				storylines[probe][0] == '+' ||
 				storylines[probe][0] == ':'

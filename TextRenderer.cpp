@@ -113,7 +113,7 @@ std::vector< glm::u8vec4 > TextRenderer::Rasterize(size_t length, size_t &width,
             for (j = y_position, q = 0; j < y_max; j++, q++)
             {
                 if (i < 0 || j < 0 ||
-                    i >= image_width || j >= image_height)
+                    i >= static_cast<int>(image_width) || j >= static_cast<int>(image_height))
                     continue;
                 // blit
                 uint8_t alpha = bitmap.buffer[q * bitmap.pitch + p];

@@ -76,6 +76,7 @@ struct PlayMode : Mode {
 		std::string script;
 		// current line num
 		int line_num = 0;
+		int storylines_size = 0;
 
 		StoryParser();
 		StoryParser(std::string const &script);
