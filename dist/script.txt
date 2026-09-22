@@ -439,12 +439,12 @@ The joy of detouring.
 +e.....
 :...
 
-:END
+:But you can always take another walk.
 > END
 
 
 
 = END
-:Restart game?
+:THE END. Restart game?
 * Restart
 > start
