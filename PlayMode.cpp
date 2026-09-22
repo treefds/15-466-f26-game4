@@ -39,13 +39,34 @@ Load< Scene > VN_scene(LoadTagDefault, []() -> Scene const * {
 	});
 });
 
-Load< Sound::Sample > dusty_floor_sample(LoadTagDefault, []() -> Sound::Sample const * {
-	return new Sound::Sample(data_path("dusty-floor.opus"));
+Load< Sound::Sample > ambient_sample(LoadTagDefault, []() -> Sound::Sample const * {
+	return new Sound::Sample(data_path("sounds/ambient1.opus"));
+});
+
+Load< Sound::Sample > woodpecker_sample(LoadTagDefault, []() -> Sound::Sample const * {
+	return new Sound::Sample(data_path("sounds/woodpecker.opus"));
+});
+
+Load< Sound::Sample > a2_sample(LoadTagDefault, []() -> Sound::Sample const * {
+	return new Sound::Sample(data_path("sounds/ambient2.opus"));
+});
+
+Load< Sound::Sample > jay_sample(LoadTagDefault, []() -> Sound::Sample const * {
+	return new Sound::Sample(data_path("sounds/jay.opus"));
 });
 
 
 Load< Sound::Sample > honk_sample(LoadTagDefault, []() -> Sound::Sample const * {
 	return new Sound::Sample(data_path("sounds/blip.wav"));
+});
+
+Load< Sound::Sample > a3_sample(LoadTagDefault, []() -> Sound::Sample const * {
+	return new Sound::Sample(data_path("sounds/ambient3.opus"));
+});
+
+
+Load< Sound::Sample > cat_sample(LoadTagDefault, []() -> Sound::Sample const * {
+	return new Sound::Sample(data_path("sounds/cat.opus"));
 });
 
 
@@ -73,7 +94,8 @@ PlayMode::PlayMode() : scene(*VN_scene) {
 
 	//start music loop playing:
 	// (note: position will be over-ridden in update())
-	leg_tip_loop = Sound::loop_3D(*dusty_floor_sample, 1.0f, glm::vec3(0.0, 0.0, 0.0), 10.0f);
+	leg_tip_loop = Sound::loop_3D(*ambient_sample, 1.0f, glm::vec3(0.0, 0.0, 0.0), 10.0f);
+	spotted = std::vector<std::string>(0);
 
 	// overwrite the texture of one mesh
 
@@ -104,6 +126,7 @@ PlayMode::PlayMode() : scene(*VN_scene) {
 	draw_text(text_line_1, "Schenley Birdwalk Simulator");
 	draw_text(text_line_2, " ");
 	draw_text(text_line_3, " ");
+	load_illust("images/EMPTY.png");
 }
 
 PlayMode::~PlayMode() {
@@ -178,8 +201,34 @@ void PlayMode::update(float elapsed) {
 
 		// fetch until it is text, while applying assets
 		while (true) {
+
+			if (ending_mode) {
+				// put in bird names
+				if (ending_counter < bird_count) {
+					for (int i = ending_counter; i < bird_count; i++) {
+						lines.emplace_back(spotted[i]);
+					}
+					ending_counter += 3;
+				} else {
+					ending_mode = false;
+					lines.emplace_back("You found " + std::to_string(bird_count) + "  birds in total.");
+					if (bird_count < 4) {
+						lines.emplace_back("You certainly spotted some birds. But not many.");
+					} else if (bird_count < 6) {
+						lines.emplace_back("Many birds.");
+					} else {
+						lines.emplace_back("So many birds! What a journey!");
+					}
+					bird_count = 0;
+					pelicaned = false;
+					spotted = std::vector<std::string>(0);
+				}
+
+				break;
+			}
+
 			std::vector<std::string> fetched = parser.get_next_lines(current_option);
-			if (fetched.size() == 1 && fetched[0].size() > 3 && fetched[0][0] == '+') {
+			if (fetched.size() == 1 && fetched[0].size() >= 3 && fetched[0][0] == '+') {
 				if (fetched[0][1] == 'i') {
 					// Image
 					load_illust(fetched[0].substr(1));
@@ -187,6 +236,64 @@ void PlayMode::update(float elapsed) {
 				} else if (fetched[0][1] == '!' && fetched[0][2] == 'i') {
 					// Image
 					load_illust(fetched[0].substr(2));
+				} else if (fetched[0][1] == 's') {
+					if (fetched[0].substr(1) == "sounds/woodpecker.opus") {
+						if (leg_tip_loop) leg_tip_loop->stop();
+						leg_tip_loop = Sound::loop_3D(*woodpecker_sample, 1.0f, glm::vec3(0.0, 0.0, 0.0), 10.0f);
+					} else if (fetched[0].substr(1) == "sounds/ambient1.opus") {
+						if (leg_tip_loop) leg_tip_loop->stop();
+						leg_tip_loop = Sound::loop_3D(*ambient_sample, 1.0f, glm::vec3(0.0, 0.0, 0.0), 10.0f);
+					} else if (fetched[0].substr(1) == "sounds/ambient2.opus") {
+						if (leg_tip_loop) leg_tip_loop->stop();
+						leg_tip_loop = Sound::loop_3D(*a2_sample, 1.0f, glm::vec3(0.0, 0.0, 0.0), 10.0f);
+					} else if (fetched[0].substr(1) == "sounds/jay.opus") {
+						if (leg_tip_loop) leg_tip_loop->stop();
+						leg_tip_loop = Sound::loop_3D(*jay_sample, 1.0f, glm::vec3(0.0, 0.0, 0.0), 10.0f);
+					} else if (fetched[0].substr(1) == "sounds/ambient3.opus") {
+						if (leg_tip_loop) leg_tip_loop->stop();
+						leg_tip_loop = Sound::loop_3D(*a3_sample, 1.0f, glm::vec3(0.0, 0.0, 0.0), 10.0f);
+					} else if (fetched[0].substr(1) == "sounds/cat.opus") {
+						if (leg_tip_loop) leg_tip_loop->stop();
+						leg_tip_loop = Sound::loop_3D(*cat_sample, 1.0f, glm::vec3(0.0, 0.0, 0.0), 10.0f);
+					}
+				} else if (fetched[0][1] == 'd') {
+					if (fetched[0][2] == 'P' && !pelicaned) {
+						pelicaned = true;
+						spotted.emplace_back("Pelican (in dream), ");
+						bird_count++;
+					} else if (fetched[0][2] == 's') {
+						spotted.emplace_back("Chipping Sparrows, ");
+						bird_count++;
+					} else if (fetched[0][2] == 'e') {
+						spotted.emplace_back("European Starling, ");
+						bird_count++;
+					} else if (fetched[0][2] == 'f') {
+						spotted.emplace_back("House Finch, ");
+						bird_count++;
+					} else if (fetched[0][2] == 'w') {
+						spotted.emplace_back("Black-throated Green Warbler, ");
+						bird_count++;
+					} else if (fetched[0][2] == 'j') {
+						spotted.emplace_back("Blue Jay, ");
+						bird_count++;
+					} else if (fetched[0][2] == 'g') {
+						spotted.emplace_back("Canada Goose, ");
+						bird_count++;
+					} else if (fetched[0][2] == 'c') {
+						spotted.emplace_back("Northern Cardinal, ");
+						bird_count++;
+					} else if (fetched[0][2] == 'm') {
+						spotted.emplace_back("Gray Catbird, ");
+						bird_count++;
+					} else if (fetched[0][2] == 'p') {
+						spotted.emplace_back("Pileated Woodpecker, ");
+						bird_count++;
+					}
+				} else if (fetched[0][1] == 'e') {
+					// Ending mode
+					ending_mode = true;
+					lines = std::vector<std::string>{ "You started counting..." };
+					break;
 				}
 			} else {
 				lines = fetched;

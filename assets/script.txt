@@ -1,4 +1,4 @@
-# start
+= start
 +images/SUNRISE.png
 :A beautiful Saturday morning in Pittsburgh.
 What a beautiful day outside.
@@ -29,6 +29,7 @@ A long rest. Before the next deadline, that is.
 Drowsiness hits your head. The world turns darker.
 
 +!images/SUNRISE4.png
++dP
 :Inside that darkness, there is a pelican, flying across the lake.
 Stars start emerging from the dark sky.
 
@@ -102,6 +103,7 @@ Just under the trees on the lawns there,
 you see some tiny birds chirping and feeding.
 
 +images/SPARROW.png
++ds
 :These are chipping sparrows,
 not to be confused with American tree sparrows
 and Eurasian tree sparrows and house sparrows.
@@ -110,6 +112,7 @@ and Eurasian tree sparrows and house sparrows.
 you see more sparrows pecking the ground.
 
 +images/EMPTY.png
++sounds/jay.opus
 :Suddenly, the tiny birds dispersed!
 You hear something that scared away the birds.
 Was that the sound of a hawk? Seeing a hawk would be really lucky...
@@ -134,6 +137,7 @@ you couldn't spot a hawk or anything like that.
 :You looked into the trees. You see something blue there.
 
 +images/BLUEJAY.png
++dj
 :It is a blue jay. While you were staring,
 you heard that sound again. It's not hawk, but a blue jay.
 
@@ -145,6 +149,7 @@ mimicking the sound of predatory birds to scare off competitors.
 > walk4
 
 = walk4
++sounds/ambient2.opus
 +images/SCHENLEY2.png
 :The walk shall continue. There are a few paths you can take here.
 
@@ -160,6 +165,7 @@ mimicking the sound of predatory birds to scare off competitors.
 you reached the Westinghouse memorial.
 
 +!images/HOUSEFINCH.png
++df
 :You see some birds hanging around the pond.
 They look like house finches.
 Adult male finches have the unmistakable red plumage.
@@ -168,6 +174,7 @@ Adult male finches have the unmistakable red plumage.
 They are introduced here, just like
 the birds with "Euro" in their names. Speaking of Euros...
 
++de
 +!images/STARLING.png
 :Isn't that a European Starling there?
 Distinctively dark, yet shiny feather. Pokey beak.
@@ -183,6 +190,7 @@ You didn't know the trail has a name until you looked it up on Google Map.
 :You look down into the valleys. Had you taken the other path,
 you will be somewhere down there.
 
++sounds/cat.opus
 :The trail is quiet. Just you and the nature.
 Occasionally some jogging guy would say hello to you though.
 
@@ -198,6 +206,7 @@ Occasionally some jogging guy would say hello to you though.
 You are almost spotting something...
 
 +!images/CATBIRD.png
++dm
 :You saw a gray, fluffy bird! It's a Gray Catbird.
 They are named after their meowing-like calls. 
 
@@ -209,7 +218,7 @@ They are named after their meowing-like calls.
 There shouldn't be a cat here anyway.
 
 = memorial5
-
++sounds/ambient2.opus
 +images/DIVERGE2.png
 :As you go on, there's another diverging path.
 Going up leads to the golfing area,
@@ -256,8 +265,9 @@ the open ground on the top of the hill.
 > memorial10
 
 = woodpecker
++sounds/woodpecker.opus
 :You start hearing something.
-"ddddddrrrr. ddrdrdrdddrdrrr..."
+"drr dddr drrr dddr dddrrr... ddrr drr.."
 
 ~It sounds like a drill... or something poking a table...
 * Look at higher tree branches?
@@ -266,13 +276,14 @@ the open ground on the top of the hill.
 > woodpecker3
 
 =woodpecker2
++dp
 +images/WOODPECKER.png
 :It is a woodpecker!
 
 :A Pileated Woodpecker. Beautiful red crest with white neck stripe,
 the species is unmistakable.
 
-:"dddddddddrdddrddrrrr..."
+:"dddr dddrrr drr... ddr ddr..."
 It is pecking the wood.
 
 :Well, you didn't expect to see a woodpecker
@@ -318,6 +329,7 @@ its window reflecting the rising sun's light.
 :You imagine cloud floating here all the way from Michigan.
 Just like humans move home, and bird migrate...
 
++dg
 +!images/GOOSE.png
 :A flock of birds passed through the sky. They are migrating too.
 You think those are Canada Goose, those you are not sure.
@@ -328,6 +340,7 @@ They are really afar.
 > golf2
 
 = cardinal
++dc
 +images/CARDINAL.png
 :The canopy of the trees are rustling as wind breezes through the leaves.
 :You enjoy watching them shake rhythmically.
@@ -349,6 +362,7 @@ It is time to leave.
 
 = tufa1
 +images/STARLING2.png
++de
 :Along the path, you spotted some European Starlings.
 These are birds with shiny, dark feather, introduced from Europe.
 A common sight on the streets.
@@ -378,6 +392,7 @@ There could be something in there.
 :You are seeing something...
 It is a warbler!
 
++dw
 :You think it is a Black-throated Green Warbler.
 These birds only stay here for short periods every year.
 You can't find them later in winter.
@@ -408,6 +423,7 @@ Tens of thousands of years ago, even this valley may not exist yet.
 
 = conclusion
 +!images/EMPTY.png
++sounds/ambient2.opus
 :You are reminded of the Poem "The Road Not Taken",
 by Robert Frost.
 
@@ -420,7 +436,15 @@ The joy of detouring.
 
 :In the end, how many birds did you spot?
 
++e.....
+:...
+
+:But you can always take another walk.
 > END
 
 
 
+= END
+:THE END. Restart game?
+* Restart
+> start

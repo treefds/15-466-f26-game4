@@ -57,6 +57,13 @@ struct PlayMode : Mode {
 	//text renderer object
 	TextRenderer *text_renderer;
 
+	//result
+	std::vector<std::string> spotted;
+	bool pelicaned = false;
+	int bird_count = 0;
+	bool ending_mode = false;
+	int ending_counter = 0;
+
 	//anim
 	float time_since_proceed = 0.0f;
 	float time_since_image_update = 0.0f;
