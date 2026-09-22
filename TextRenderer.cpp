@@ -73,8 +73,8 @@ std::vector< glm::u8vec4 > TextRenderer::Rasterize(size_t length, size_t &width,
     size_t image_width = 0;
     size_t image_height = 0;
     for (size_t idx = 0; idx < len; idx++) {
-        current_x += pos[idx].x_advance / 64.0;
-        current_y += pos[idx].y_advance / 64.0;
+        current_x += pos[idx].x_advance / 64.0f;
+        current_y += pos[idx].y_advance / 64.0f;
         image_width = std::max(image_width, static_cast<size_t>(current_x) + FONT_SIZE * 2);
         image_height = std::max(image_height, static_cast<size_t>(current_y) + FONT_SIZE * 2);
     }
@@ -121,8 +121,8 @@ std::vector< glm::u8vec4 > TextRenderer::Rasterize(size_t length, size_t &width,
             }
         }
         // Advance!
-        current_x += pos[idx].x_advance / 64.0;
-        current_y += pos[idx].y_advance / 64.0;
+        current_x += pos[idx].x_advance / 64.0f;
+        current_y += pos[idx].y_advance / 64.0f;
     }
     
     hb_buffer_destroy (hb_buffer);
