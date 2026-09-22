@@ -55,6 +55,8 @@ Many images are referenced. They are traced over but not directly.
 
 Read [assets/images/README.md]() for a full attribution.
 
+The Font used is Noto Serif. See its license in assets/font.
+
 Other assets (photos and recordings) are my own.
 
 ---
