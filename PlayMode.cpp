@@ -45,7 +45,7 @@ Load< Sound::Sample > dusty_floor_sample(LoadTagDefault, []() -> Sound::Sample c
 
 
 Load< Sound::Sample > honk_sample(LoadTagDefault, []() -> Sound::Sample const * {
-	return new Sound::Sample(data_path("honk.wav"));
+	return new Sound::Sample(data_path("sounds/blip.wav"));
 });
 
 
@@ -102,6 +102,8 @@ PlayMode::PlayMode() : scene(*VN_scene) {
 
 	// Write sample line
 	draw_text(text_line_1, "Schenley Birdwalk Simulator");
+	draw_text(text_line_2, " ");
+	draw_text(text_line_3, " ");
 }
 
 PlayMode::~PlayMode() {
@@ -122,11 +124,11 @@ bool PlayMode::handle_event(SDL_Event const &evt, glm::uvec2 const &window_size)
 			right.downs += 1;
 			right.pressed = true;
 			return true;
-		} else if (evt.key.key == SDLK_W) {
+		} else if ( evt.key.key == SDLK_UP) {
 			up.downs += 1;
 			up.pressed = true;
 			return true;
-		} else if (evt.key.key == SDLK_S) {
+		} else if (evt.key.key == SDLK_DOWN) {
 			down.downs += 1;
 			down.pressed = true;
 			return true;
@@ -143,32 +145,14 @@ bool PlayMode::handle_event(SDL_Event const &evt, glm::uvec2 const &window_size)
 		} else if (evt.key.key == SDLK_D) {
 			right.pressed = false;
 			return true;
-		} else if (evt.key.key == SDLK_W) {
+		} else if (evt.key.key == SDLK_UP) {
 			up.pressed = false;
 			return true;
-		} else if (evt.key.key == SDLK_S) {
+		} else if (evt.key.key == SDLK_DOWN) {
 			down.pressed = false;
 			return true;
 		} else if (evt.key.key == SDLK_SPACE) {
 			proceed.pressed = false;
-			return true;
-		}
-	} else if (evt.type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
-		if (SDL_GetWindowRelativeMouseMode(Mode::window) == false) {
-			SDL_SetWindowRelativeMouseMode(Mode::window, true);
-			return true;
-		}
-	} else if (evt.type == SDL_EVENT_MOUSE_MOTION) {
-		if (SDL_GetWindowRelativeMouseMode(Mode::window) == true) {
-			glm::vec2 motion = glm::vec2(
-				evt.motion.xrel / float(window_size.y),
-				-evt.motion.yrel / float(window_size.y)
-			);
-			camera->transform->rotation = glm::normalize(
-				camera->transform->rotation
-				* glm::angleAxis(-motion.x * camera->fovy, glm::vec3(0.0f, 1.0f, 0.0f))
-				* glm::angleAxis(motion.y * camera->fovy, glm::vec3(1.0f, 0.0f, 0.0f))
-			);
 			return true;
 		}
 	}
@@ -178,28 +162,6 @@ bool PlayMode::handle_event(SDL_Event const &evt, glm::uvec2 const &window_size)
 
 void PlayMode::update(float elapsed) {
 
-	//move camera:
-	{
-
-		//combine inputs into a move:
-		constexpr float PlayerSpeed = 30.0f;
-		glm::vec2 move = glm::vec2(0.0f);
-		if (left.pressed && !right.pressed) move.x =-1.0f;
-		if (!left.pressed && right.pressed) move.x = 1.0f;
-		if (down.pressed && !up.pressed) move.y =-1.0f;
-		if (!down.pressed && up.pressed) move.y = 1.0f;
-
-		//make it so that moving diagonally doesn't go faster:
-		if (move != glm::vec2(0.0f)) move = glm::normalize(move) * PlayerSpeed * elapsed;
-
-		glm::mat4x3 frame = camera->transform->make_parent_from_local();
-		glm::vec3 frame_right = frame[0];
-		//glm::vec3 up = frame[1];
-		glm::vec3 frame_forward = -frame[2];
-
-		camera->transform->position += move.x * frame_right + move.y * frame_forward;
-	}
-
 	{ //update listener to camera position:
 		glm::mat4x3 frame = camera->transform->make_parent_from_local();
 		glm::vec3 frame_right = frame[0];
@@ -208,13 +170,44 @@ void PlayMode::update(float elapsed) {
 	}
 
 	// story progerssion
-	if (proceed.downs) {
-		std::vector<std::string> lines = parser.get_next_lines(0);
+	if (proceed.downs && time_since_proceed < 2.0f) {
+		time_since_proceed = 5.0f;
+	} else if (proceed.downs) {
+		// get lines
+		std::vector<std::string> lines;
+
+		// fetch until it is text, while applying assets
+		while (true) {
+			std::vector<std::string> fetched = parser.get_next_lines(current_option);
+			if (fetched.size() == 1 && fetched[0].size() > 3 && fetched[0][0] == '+') {
+				if (fetched[0][1] == 'i') {
+					// Image
+					load_illust(fetched[0].substr(1));
+					time_since_image_update = 0.0f;
+				} else if (fetched[0][1] == '!' && fetched[0][2] == 'i') {
+					// Image
+					load_illust(fetched[0].substr(2));
+				}
+			} else {
+				lines = fetched;
+				break;
+			}
+		}
+
+		// reset timer
+		time_since_proceed = 0.0f;
+		current_option = 0;
+
+		choice_mode = false;
+		// redraw the texts
 		for (size_t idx = 0; idx < lines.size() && idx < 3; ++idx) {
 			if (idx == 0) {
 				draw_text(text_line_1, lines[idx]);
 			} else if (idx == 1) {
 				draw_text(text_line_2, lines[idx]);
+				if (lines[idx][0] == '*') {
+					choice_mode = true;
+				}
 			} else if (idx == 2) {
 				draw_text(text_line_3, lines[idx]);
 			}
@@ -228,6 +221,24 @@ void PlayMode::update(float elapsed) {
 				draw_text(text_line_3, " ");
 			}
 		}
+	}
+
+	{ // change choice
+		if (choice_mode && (up.downs || down.downs)) {
+			current_option = 1 - current_option;
+		}
+	}
+
+	{// recolor the texts
+		time_since_proceed += elapsed;
+		time_since_image_update += elapsed;
+		text_line_1->tint.a = std::clamp(time_since_proceed * 1.0f, 0.0f, 1.0f);
+		text_line_2->tint.a = std::clamp(time_since_proceed * 1.0f - 0.8f, 0.0f, choice_mode ? (current_option == 0 ? 0.5f : 0.25f) : 1.0f);
+		text_line_3->tint.a = std::clamp(time_since_proceed * 1.0f - 1.6f, 0.0f, choice_mode ? (current_option == 1 ? 0.5f : 0.25f) : 1.0f);
+		text_line_2->tint.b = choice_mode ? (current_option == 0 ? 0.0f : 1.0f) : 1.0f;
+		text_line_3->tint.b = choice_mode ? (current_option == 1 ? 0.0f : 1.0f) : 1.0f;
+
+		illust->tint.a = std::clamp(time_since_image_update * 0.4f, 0.0f, 1.0f);
 	}
 
 	
@@ -317,6 +328,31 @@ void PlayMode::draw_text(Scene::Drawable *line, std::string text) {
 	line->pipeline.textures[0].target = GL_TEXTURE_2D;
 }
 
+// Load a texture to the foreground illustration object
+void PlayMode::load_illust(std::string name) {
+	std::string path = data_path(name);
+	
+	std::vector< glm::u8vec4 > tex_data(0);
+	glm::uvec2 img_size({800, 400});
+	load_png(path, &img_size, &tex_data, LowerLeftOrigin);
+
+	GLuint tex;
+	glGenTextures(1, &tex);
+	glBindTexture(GL_TEXTURE_2D, tex);
+	glTexImage2D(
+		GL_TEXTURE_2D, 0, GL_SRGB8_ALPHA8, // this is sRGB
+		800, 400,
+		0, GL_RGBA, GL_UNSIGNED_BYTE, tex_data.data());
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
+	illust->pipeline.textures[0].texture = tex;
+	illust->pipeline.textures[0].target = GL_TEXTURE_2D;
+
+}
 
 PlayMode::StoryParser::StoryParser() {
 	storylines = std::vector<std::string>(0);
@@ -354,7 +390,7 @@ std::vector<std::string> PlayMode::StoryParser::get_next_lines(int index_selecte
 
 	std::string jump_flag = "";
 	if (storylines[line_num][0] == '~') {
-		std::cout << "~\n";
+		std::cout << index_selected << "~\n";
 		// probe for options
 		int probe = line_num + 1;
 		int option_now = -1;
@@ -368,6 +404,7 @@ std::vector<std::string> PlayMode::StoryParser::get_next_lines(int index_selecte
 				option_now++;
 			}
 			if (option_now != index_selected) {
+				probe++;
 				continue;
 			}
 			// selected option; probe for `>`

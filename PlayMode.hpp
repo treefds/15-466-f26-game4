@@ -22,6 +22,7 @@ struct PlayMode : Mode {
 
 	//helper functions
 	void draw_text(Scene::Drawable *line, std::string text);
+	void load_illust(std::string name);
 
 	//----- game state -----
 
@@ -55,6 +56,12 @@ struct PlayMode : Mode {
 
 	//text renderer object
 	TextRenderer *text_renderer;
+
+	//anim
+	float time_since_proceed = 0.0f;
+	float time_since_image_update = 0.0f;
+	int current_option = 0;
+	bool choice_mode = false;
 
 	// Story Parser
 	struct StoryParser {

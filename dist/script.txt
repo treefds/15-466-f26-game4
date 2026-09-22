@@ -1,11 +1,12 @@
-+SUNRISE
+# start
++images/SUNRISE.png
 :A beautiful Saturday morning in Pittsburgh.
-
-:What a beautiful day outside.
+What a beautiful day outside.
 
 :Birds are singing, flowers are blooming...
 
-~On days like these, folks like you...
+= wakeup
+~On days like these, folks like you... (UP/DOWN to select)
 * Should be sleeping til noon
 > noon
 * Should be out for a walk
@@ -19,66 +20,98 @@
 :You recall the horrifying words that Reviewer 2 had to say about your submission.
 "Lack of novelty", they said. "Needs more experiments". Oh wow. 
 
-+SUNRISE_DIM
-:But the rebuttal is over now. You deserve rest. A long rest. Before the next deadline, that is.
++!images/SUNRISE2.png
+:But the rebuttal is over now. You deserve rest.
+A long rest. Before the next deadline, that is.
 
-+SUNRISE_DIMMER
-:Your eyes have closed again before you could realize. Drowsiness hits your head. The world turns darker.
++!images/SUNRISE3.png
+:Your eyes have closed again before you could realize.
+Drowsiness hits your head. The world turns darker.
 
-:Inside that darkness, there is a pelican, flying across the lake. Stars start emerging from the dark sky.
++!images/SUNRISE4.png
+:Inside that darkness, there is a pelican, flying across the lake.
+Stars start emerging from the dark sky.
 
-:The pelican flaps its wings faster. You can feel the wind weaving through their feathers.
+:The pelican flaps its wings faster.
+You can feel the wind weaving through their feathers.
 
-+SUNRISE_DIMMEST
-:The pelican flaps even faster, their webbed feet swinging below their belly. It is swinging faster, rotating.
++!images/SUNRISE5.png
+:The pelican flaps even faster,
+their webbed feet swinging below their belly.
+It is swinging faster, rotating.
 
-:Feet still swinging, cycling. It looks wrong. It is riding a bicycle. The pelican is wearing a cyclist's helmet. Pelican is riding a bike.
+:Feet still swinging, cycling. It looks wrong.
+It is riding a bicycle.
+The pelican is wearing a cyclist's helmet. Pelican is riding a bike.
 
-:Damn, it is one of those stupid viral AI posts except you don't remember seeing it. What is even going on?
+:Damn, what is even going on?
 
 +DARK
-:The daymare hallucination goes on. Sleeping too much may be a bad idea, too.
+:The daymare hallucination goes on.
+Sleeping too much may be a bad idea, too.
 
-> END
+:No, remake your decision.
+> wakeup
 
 = walk
 :...you would go for a walk.
 
-:Indeed. What better time to take a big walk than now, after those stressful works are finally over?
-:No more deadlines, no more writings, no more rebuttals. You deserve rest. For just a weekend, that is.
+:Indeed. What better time to take a big walk than now,
+after those stressful works are finally over?
+
+:No more deadlines, no more writings, no more rebuttals.
+You deserve rest. For just a weekend, that is.
 
 ~But a weekend is a weekend. You would go for a walk, yes...
 * Let's go for a walk.
-> walk2
-* Let's go for a Big Walk(TM)!
 > walk3
+* Let's go for a Big Walk(TM)!
+> walk2
 
 = walk2
-+BIG WALK
-:You open Steam and start Big Walk by House House. You've been wanting to play this game for so long, but there was never enough time. Not anymore!
++images/BIGWALK.png
+:You open Steam and start Big Walk by House House.
+You've been wanting to play this game for so long,
+but there was never enough time. Not anymore!
 
-:...But then you recall this is a co-op game, and none of your Steam friends are awake so early in the morning...
+:...But then you recall this is a co-op game,
+and none of your Steam friends are awake
+so early in the morning...
 
-:Perhaps Big Walk is best for the next time. Let's touch some real grass instead.
+:Perhaps Big Walk is best for the next time.
+Let's touch some real grass instead.
 
 > walk3
 = walk3
 +SCHENLEY1
-:There is no better place around to touch some grass than Schenley Park.
+:There is no better place around to touch some grass
+than Schenley Park.
 
-:It is the park right outside the university campus. They call it a park, but most of it is really just forest that escaped urbanization.
+:It is the park right outside the university campus.
+They call it a park,
+but most of it is really just forest that escaped urbanization.
 
-:Driveways and roads cut through the parks; just beneath those roads, there are those trails, quiet, winding through the hills, perfect for a walk.
+:Driveways and roads cut through the parks;
+just beneath those roads, there are those trails, quiet,
+winding through the hills, perfect for a walk.
 
 :You enter the park from Porter Hall. 
-Just under the trees on the lawns there, you see some tiny birds chirping and feeding.
+Just under the trees on the lawns there,
+you see some tiny birds chirping and feeding.
 
-:These are house sparrows, not to be confused with American tree sparrows and Eurasian tree sparrows and song sparrows.
-House sparrows exhibit dimorphism, unlike Eurasian tree sparrows and song sparrows; and American tree sparrows are still breeding in the north right now.
+:These are house sparrows,
+not to be confused with American tree sparrows
+and Eurasian tree sparrows and song sparrows.
+House sparrows exhibit dimorphism,
+unlike Eurasian tree sparrows and song sparrows;
+and American tree sparrows are still breeding in the north right now.
 
-:As you walk up the hills on the lawn, you see more sparrows pecking the ground.
+:As you walk up the hills on the lawn,
+you see more sparrows pecking the ground.
 
-:Suddenly, the tiny birds dispersed! You hear something that scared away the birds. Was that the sound of a hawk? Seeing a hawk would be really lucky...
+:Suddenly, the tiny birds dispersed!
+You hear something that scared away the birds.
+Was that the sound of a hawk? Seeing a hawk would be really lucky...
 
 ~You decided to...
 * Look up high into the sky.
@@ -87,50 +120,227 @@ House sparrows exhibit dimorphism, unlike Eurasian tree sparrows and song sparro
 > bluejay2
 
 = bluejay1
-:You looked high up. The sky is beautifully blue. You squeezed your eyes; but despite your best effort, you couldn't spot a hawk or anything like that.
+:You looked high up. The sky is beautifully blue.
+You squeezed your eyes; but despite your best effort,
+you couldn't spot a hawk or anything like that.
 
 :Are they simply too high up? Or perhaps you misheard?
 
 * Might as well continue.
 > walk4
 = bluejay2
-:For just one moment, your mind got distracted and you looked into the trees. You see something blue there.
+:You looked into the trees. You see something blue there.
 
-:It is a blue jay. While you were staring, you heard that hawk sound again. It's actually a blue jay.
+:It is a blue jay. While you were staring,
+you heard that sound again. It's not hawk, but a blue jay.
 
-:You remember reading some stories about blue jays mimicking the sound of predatory birds to scare off competitors. Could that be the case?
+:You remember reading some stories about blue jays
+mimicking the sound of predatory birds to scare off competitors.
 
 :Regardless, the blue jay does look very cute. Oh, it flew away.
 > walk4
 
 = walk4
-~The walk shall continue. There are a few paths you can take here. Which direction should you go?
-* To the Westinghouse memorial
+:The walk shall continue. There are a few paths you can take here.
+
+~Which direction should you go?
+* Up the hill
 > memorial1
 * Down the bridge
 > tufa1
 
 = memorial1
-:After walking up and down again, you reached the Westinghouse memorial.
+:After walking up and down again,
+you reached the Westinghouse memorial.
 
-:You see some birds hanging around the pond. They look like house finches. Adult male finches have the unmistakable red plumage.
+:You see some birds hanging around the pond.
+They look like house finches.
+Adult male finches have the unmistakable red plumage.
 
-:House finches are native to Western United States. They are introduced here, just like the birds with "Euro" in their names. Speaking of Euros...
+:House finches are native to Western United States.
+They are introduced here, just like
+the birds with "Euro" in their names. Speaking of Euros...
 
-:Isn't that a European Starling there? Distinctively dark, yet shiny feather. Pokey beak.
-:They are more common on the streets and open fields than in the woods, but here they are; an unlikely but interesting sighting.
+:Isn't that a European Starling there?
+Distinctively dark, yet shiny feather. Pokey beak.
+
+:They are more common on the streets and open fields than in the woods,
+but here they are; an unlikely but interesting sighting.
 
 = memorial2
-:You went down the hills and stepped on the memorial trail. You didn't know the trail has a name until you looked it up on Google Map.
+:You went over the hills and stepped on the memorial trail.
+You didn't know the trail has a name until you looked it up on Google Map.
 
-:The trail is quiet. Just you and the nature. Occasionally some jogging guy would say hello to you though.
+:You look down into the valleys. Had you taken the other path,
+you will be somewhere down there.
 
-WOODPECKER
-CARDINAL
+:The trail is quiet. Just you and the nature.
+Occasionally some jogging guy would say hello to you though.
+
+:A ring of sound passed through your ears.
+:It sounds like a cat meowing..??? Would you... 
+* Look carefully
+> memorial4
+* Meow back!
+> memorial3
+
+= memorial3
+:You looked very carefully, at the trees and branches.
+You are almost spotting something...
+
+:You saw a gray, fluffy bird! It's a Gray Catbird.
+They are named after their meowing-like calls. 
+
+> memorial5
+= memorial4
+:You meowed loudly! Your meowing sound pierced through the woods.
+
+:But no cat responded...
+There shouldn't be a cat here anyway.
+
+= memorial5
+
+:As you go on, there's another diverging path.
+Going up leads to the golfing area,
+the open ground on the top of the hill.
+
+:Or, you could go deeper into the forests.
+* Go up the hill
+> golf
+* Go deeper
+> memorial6
+
+= memorial6
+:You are reminded of the Poem "The Road Not Taken",
+by Robert Frost.
+
+:"Two roads diverged in a wood, and I,
+"I took the one less traveled by,
+"And that has made all the difference."
+
+:The canopy covering the land, sunlight barely hits the pavement.
+:You could hear the breeze, leaves rustling.
+
+:You decided to sit by the path for a while.
+
+~Just to appreciate everything here.
+* Sit a bit longer
+> memorial7
+* Leave
+> memorial10
+
+= memorial7
+~Just to appreciate everything here..
+* Sit a bit longer
+> memorial8
+* Leave
+> memorial10
+
+= memorial8
+~Just to appreciate everything here...
+* Sit a bit longer
+> memorial9
+* Leave
+> memorial10
+
+= memorial9
+~Just to appreciate everything here....
+* Sit a bit longer
+> woodpecker
+* Leave
+> memorial10
+
+= woodpecker
+:You start hearing something.
+"ddddddrrrr. ddrdrdrdddrdrrr..."
+
+~It sounds like a drill... or something poking a table...
+* Look at higher tree branches?
+> woodpecker2
+* Look at lower tree branches?
+> woodpecker3
+
+=woodpecker2
+:It is a woodpecker!
+
+:A Pileated Woodpecker. Beautiful red crest with white neck stripe,
+the species is unmistakable.
+
+:"dddddddddrdddrddrrrr..."
+It is pecking the wood.
+
+:Well, you didn't expect to see a woodpecker
+when you woke up this morning. But here you are.
+Seeing the good stuff.
+
+> memorial10
+=woodpecker3
+:You saw a squirrel!
+
+:Well, the place is called Squirrel Hill after all.
+What a lovely being.
+
+:They seem to be eating acorns? The food litters dropping onto the ground
+is making the funny noises, isn't it?
+
+:Seeing a squirrel eating food makes you kinda hungry too.
+
+= memorial10
+:All good thing comes to an end...
+It is time to leave.
+
+> conclusion
+
+= golf
+:You went up the hill and reached the great lawn at the top.
+From here, you can see the Cathedral of Knowledge in the west,
+its window reflecting the rising sun's light.
+
+:Your leg is feeling sore from the walk. Let's rest for a while...
+* Lie down and watch the cloud
+> cloud
+* Sit and look at trees
+> cardinal
+
+= crow
+:Clouds. Where do they come from?
+
+:You imagine cloud floating here all the way from Michigan.
+Just like humans move home, and bird migrate...
+
+:A flock of birds passed through the sky. They are migrating too.
+You think those are Canada Goose, those you are not sure.
+They are really afar.
+
+:Sun rose as birds flew pass.
+
+> golf2
+
+= cardinal
+:The canopy of the trees are rustling as wind breezes through the leaves.
+:You enjoy watching them shake rhythmically.
+
+:At the top of one branch, you spotted a red dot.
+It is a Northern Cardinal.
+
+:The cardinal sings.
+:......
+:The sun is rising.
+
+= golf2
+:Seems like all good things come to an end...
+It is time to leave.
+
+> conclusion
 
 
 = tufa1
 cedar waxwing
+
+
+
+
+= conclusion
 
 > END
 
