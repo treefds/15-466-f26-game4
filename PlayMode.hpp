@@ -7,6 +7,9 @@
 
 #include <vector>
 #include <deque>
+#include <unordered_map>
+
+#include "TextRenderer.hpp"
 
 struct PlayMode : Mode {
 	PlayMode();
@@ -17,27 +20,29 @@ struct PlayMode : Mode {
 	virtual void update(float elapsed) override;
 	virtual void draw(glm::uvec2 const &drawable_size) override;
 
+	//helper functions
+	void draw_text(Scene::Drawable *line, std::string text);
+
 	//----- game state -----
 
 	//input tracking:
 	struct Button {
 		uint8_t downs = 0;
 		uint8_t pressed = 0;
-	} left, right, down, up;
+	} left, right, down, up, proceed;
 
 	//local copy of the game scene (so code can change it during gameplay):
 	Scene scene;
 
-	//hexapod leg to wobble:
-	Scene::Transform *hip = nullptr;
-	Scene::Transform *upper_leg = nullptr;
-	Scene::Transform *lower_leg = nullptr;
-	glm::quat hip_base_rotation;
-	glm::quat upper_leg_base_rotation;
-	glm::quat lower_leg_base_rotation;
-	float wobble = 0.0f;
+	//text lines
+	Scene::Drawable *text_line_1 = nullptr;
+	Scene::Drawable *text_line_2 = nullptr;
+	Scene::Drawable *text_line_3 = nullptr;
 
-	glm::vec3 get_leg_tip_position();
+	// bg & image
+	Scene::Drawable *background = nullptr;
+	Scene::Drawable *illust = nullptr;
+	
 
 	//music coming from the tip of the leg (as a demonstration):
 	std::shared_ptr< Sound::PlayingSample > leg_tip_loop;
@@ -47,5 +52,26 @@ struct PlayMode : Mode {
 	
 	//camera:
 	Scene::Camera *camera = nullptr;
+
+	//text renderer object
+	TextRenderer *text_renderer;
+
+	// Story Parser
+	struct StoryParser {
+		// the story script
+		std::string script;
+		// current line num
+		int line_num = 0;
+
+		StoryParser();
+		StoryParser(std::string const &script);
+		std::vector<std::string> get_next_lines(int index_selected);
+
+	private:
+		// parsed storylines
+		std::vector<std::string> storylines;
+
+		std::unordered_map<std::string, int> tag_to_line { }; 
+	} parser { };
 
 };

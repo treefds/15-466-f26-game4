@@ -80,6 +80,7 @@ struct Scene {
 			} textures[TextureCount];
 		} pipeline;
 		bool blended = false;
+		glm::vec4 tint = {1.0f, 1.0f, 1.0f, 1.0f};
 	};
 
 	struct Camera {
