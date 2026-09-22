@@ -402,7 +402,7 @@ void PlayMode::draw_text(Scene::Drawable *line, std::string text) {
 	glBindTexture(GL_TEXTURE_2D, tex);
 	glTexImage2D(
 		GL_TEXTURE_2D, 0, GL_RGBA, // this is RGBA
-		width, height,
+		static_cast<int>(width), static_cast<int>(height),
 		0, GL_RGBA, GL_UNSIGNED_BYTE, pixels.data());
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
@@ -464,7 +464,7 @@ PlayMode::StoryParser::StoryParser(std::string const &script): script(script) {
 		}
 		line = storylines[idx].substr(1);
 		line.erase(0, line.find_first_not_of(' '));
-		tag_to_line[line] = idx;
+		tag_to_line[line] = static_cast<int>(idx);
 	}
 
 	storylines_size = static_cast<int>(storylines.size());
