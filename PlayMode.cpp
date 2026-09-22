@@ -476,7 +476,6 @@ std::vector<std::string> PlayMode::StoryParser::get_next_lines(int index_selecte
 
 	std::string jump_flag = "";
 	if (storylines[line_num][0] == '~') {
-		std::cout << index_selected << "~\n";
 		// probe for options
 		int probe = line_num + 1;
 		int option_now = -1;
@@ -529,7 +528,6 @@ std::vector<std::string> PlayMode::StoryParser::get_next_lines(int index_selecte
 		tag.erase(0, tag.find_first_not_of(' '));
 		int jump_to = tag_to_line[tag];
 		// there is a chance jump_to is invalid?
-		std::cout << "JUMP:" << tag << " (" << jump_to << ")" << std::endl;
 		line_num = jump_to + 1;
 	}
 
@@ -581,9 +579,9 @@ std::vector<std::string> PlayMode::StoryParser::get_next_lines(int index_selecte
 		}
 	}
 
-	for (std::string l : results) {
-		std::cout << l << std::endl;
-	}
+	// for (std::string l : results) {
+	// 	std::cout << l << std::endl;
+	// }
 
 	return results;
 }
