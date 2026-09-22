@@ -134,7 +134,7 @@ bool PlayMode::handle_event(SDL_Event const &evt, glm::uvec2 const &window_size)
 			return true;
 		} else if (evt.key.key == SDLK_SPACE) {
 			if (honk_oneshot) honk_oneshot->stop();
-			honk_oneshot = Sound::play_3D(*honk_sample, 0.3f, glm::vec3(4.6f, -7.8f, 6.9f)); //hardcoded position of front of car, from blender
+			// honk_oneshot = Sound::play_3D(*honk_sample, 0.3f, glm::vec3(4.6f, -7.8f, 6.9f)); //hardcoded position of front of car, from blender
 			proceed.downs += 1;
 			proceed.pressed = true;
 		}
@@ -333,7 +333,7 @@ void PlayMode::load_illust(std::string name) {
 	std::string path = data_path(name);
 	
 	std::vector< glm::u8vec4 > tex_data(0);
-	glm::uvec2 img_size({800, 400});
+	glm::uvec2 img_size({1200, 600});
 	load_png(path, &img_size, &tex_data, LowerLeftOrigin);
 
 	GLuint tex;
@@ -341,7 +341,7 @@ void PlayMode::load_illust(std::string name) {
 	glBindTexture(GL_TEXTURE_2D, tex);
 	glTexImage2D(
 		GL_TEXTURE_2D, 0, GL_SRGB8_ALPHA8, // this is sRGB
-		800, 400,
+		1200, 600,
 		0, GL_RGBA, GL_UNSIGNED_BYTE, tex_data.data());
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);

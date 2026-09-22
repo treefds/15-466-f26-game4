@@ -51,9 +51,11 @@ The pelican is wearing a cyclist's helmet. Pelican is riding a bike.
 Sleeping too much may be a bad idea, too.
 
 :No, remake your decision.
++images/SUNRISE.png
 > wakeup
 
 = walk
++!images/WALK.png
 :...you would go for a walk.
 
 :Indeed. What better time to take a big walk than now,
@@ -83,7 +85,7 @@ Let's touch some real grass instead.
 
 > walk3
 = walk3
-+SCHENLEY1
++images/SCHENLEY1.png
 :There is no better place around to touch some grass
 than Schenley Park.
 
@@ -99,16 +101,15 @@ winding through the hills, perfect for a walk.
 Just under the trees on the lawns there,
 you see some tiny birds chirping and feeding.
 
-:These are house sparrows,
++images/SPARROW.png
+:These are chipping sparrows,
 not to be confused with American tree sparrows
-and Eurasian tree sparrows and song sparrows.
-House sparrows exhibit dimorphism,
-unlike Eurasian tree sparrows and song sparrows;
-and American tree sparrows are still breeding in the north right now.
+and Eurasian tree sparrows and house sparrows.
 
 :As you walk up the hills on the lawn,
 you see more sparrows pecking the ground.
 
++images/EMPTY.png
 :Suddenly, the tiny birds dispersed!
 You hear something that scared away the birds.
 Was that the sound of a hawk? Seeing a hawk would be really lucky...
@@ -120,6 +121,7 @@ Was that the sound of a hawk? Seeing a hawk would be really lucky...
 > bluejay2
 
 = bluejay1
++images/SKY.png
 :You looked high up. The sky is beautifully blue.
 You squeezed your eyes; but despite your best effort,
 you couldn't spot a hawk or anything like that.
@@ -131,9 +133,11 @@ you couldn't spot a hawk or anything like that.
 = bluejay2
 :You looked into the trees. You see something blue there.
 
++images/BLUEJAY.png
 :It is a blue jay. While you were staring,
 you heard that sound again. It's not hawk, but a blue jay.
 
++!images/BLUEJAY2.png
 :You remember reading some stories about blue jays
 mimicking the sound of predatory birds to scare off competitors.
 
@@ -141,6 +145,7 @@ mimicking the sound of predatory birds to scare off competitors.
 > walk4
 
 = walk4
++images/SCHENLEY2.png
 :The walk shall continue. There are a few paths you can take here.
 
 ~Which direction should you go?
@@ -150,9 +155,11 @@ mimicking the sound of predatory birds to scare off competitors.
 > tufa1
 
 = memorial1
++images/WESTINGHOUSE.png
 :After walking up and down again,
 you reached the Westinghouse memorial.
 
++!images/HOUSEFINCH.png
 :You see some birds hanging around the pond.
 They look like house finches.
 Adult male finches have the unmistakable red plumage.
@@ -161,6 +168,7 @@ Adult male finches have the unmistakable red plumage.
 They are introduced here, just like
 the birds with "Euro" in their names. Speaking of Euros...
 
++!images/STARLING.png
 :Isn't that a European Starling there?
 Distinctively dark, yet shiny feather. Pokey beak.
 
@@ -168,6 +176,7 @@ Distinctively dark, yet shiny feather. Pokey beak.
 but here they are; an unlikely but interesting sighting.
 
 = memorial2
++images/MEMORIAL1.png
 :You went over the hills and stepped on the memorial trail.
 You didn't know the trail has a name until you looked it up on Google Map.
 
@@ -178,16 +187,17 @@ you will be somewhere down there.
 Occasionally some jogging guy would say hello to you though.
 
 :A ring of sound passed through your ears.
-:It sounds like a cat meowing..??? Would you... 
+~It sounds like a cat meowing..??? Would you... 
 * Look carefully
-> memorial4
-* Meow back!
 > memorial3
+* Meow back!
+> memorial4
 
 = memorial3
 :You looked very carefully, at the trees and branches.
 You are almost spotting something...
 
++!images/CATBIRD.png
 :You saw a gray, fluffy bird! It's a Gray Catbird.
 They are named after their meowing-like calls. 
 
@@ -200,25 +210,20 @@ There shouldn't be a cat here anyway.
 
 = memorial5
 
++images/DIVERGE2.png
 :As you go on, there's another diverging path.
 Going up leads to the golfing area,
 the open ground on the top of the hill.
 
-:Or, you could go deeper into the forests.
+~Or, you could go deeper into the forests.
 * Go up the hill
 > golf
 * Go deeper
 > memorial6
 
 = memorial6
-:You are reminded of the Poem "The Road Not Taken",
-by Robert Frost.
-
-:"Two roads diverged in a wood, and I,
-"I took the one less traveled by,
-"And that has made all the difference."
-
-:The canopy covering the land, sunlight barely hits the pavement.
++images/DIVERGE3.png
+:The canopy covers the land, sunlight barely hitting the road.
 :You could hear the breeze, leaves rustling.
 
 :You decided to sit by the path for a while.
@@ -261,6 +266,7 @@ by Robert Frost.
 > woodpecker3
 
 =woodpecker2
++images/WOODPECKER.png
 :It is a woodpecker!
 
 :A Pileated Woodpecker. Beautiful red crest with white neck stripe,
@@ -275,6 +281,7 @@ Seeing the good stuff.
 
 > memorial10
 =woodpecker3
++images/EMPTY.png
 :You saw a squirrel!
 
 :Well, the place is called Squirrel Hill after all.
@@ -286,28 +293,32 @@ is making the funny noises, isn't it?
 :Seeing a squirrel eating food makes you kinda hungry too.
 
 = memorial10
++images/EMPTY.png
 :All good thing comes to an end...
 It is time to leave.
 
 > conclusion
 
 = golf
++images/LEARNING.png
 :You went up the hill and reached the great lawn at the top.
-From here, you can see the Cathedral of Knowledge in the west,
+From here, you can see the Cathedral of Learning in the west,
 its window reflecting the rising sun's light.
 
-:Your leg is feeling sore from the walk. Let's rest for a while...
+~Your leg is feeling sore from the walk. Let's rest for a while...
 * Lie down and watch the cloud
 > cloud
 * Sit and look at trees
 > cardinal
 
-= crow
+= cloud
++!images/LEARNING.png
 :Clouds. Where do they come from?
 
 :You imagine cloud floating here all the way from Michigan.
 Just like humans move home, and bird migrate...
 
++!images/GOOSE.png
 :A flock of birds passed through the sky. They are migrating too.
 You think those are Canada Goose, those you are not sure.
 They are really afar.
@@ -317,6 +328,7 @@ They are really afar.
 > golf2
 
 = cardinal
++images/CARDINAL.png
 :The canopy of the trees are rustling as wind breezes through the leaves.
 :You enjoy watching them shake rhythmically.
 
@@ -328,6 +340,7 @@ It is a Northern Cardinal.
 :The sun is rising.
 
 = golf2
++images/EMPTY.png
 :Seems like all good things come to an end...
 It is time to leave.
 
@@ -335,12 +348,77 @@ It is time to leave.
 
 
 = tufa1
-cedar waxwing
++images/STARLING2.png
+:Along the path, you spotted some European Starlings.
+These are birds with shiny, dark feather, introduced from Europe.
+A common sight on the streets.
 
++images/BRIDGE.png
+:Walking past the Botanium, walking down the bridge through the arch,
+you have walked into the valleys of the park.
 
+:Traces of erosion could be seen on the cliffs. There are many tiny bridges
+down here, as water from higher up has gathered here.
+
+:Besides the sound of water streams, you could also hear
+birdsongs echoing through the valley.
+
+~You wonder if you could spot any of them here?
+* Inspect the bushes on the hill
+> warbler
+* Inspect the stream and nearby
+> stream
+
+= warbler
++images/EROSION.png
+:You looked at the trees and bushes carefully.
+There could be something in there.
+
++!images/WARBLER.png
+:You are seeing something...
+It is a warbler!
+
+:You think it is a Black-throated Green Warbler.
+These birds only stay here for short periods every year.
+You can't find them later in winter.
+
+> tufa2
+
+= stream
++images/EROSION.png
+:You stared at the stream.
+
+:You find the water level to be somewhat low.
+The bridges are clearly built for larger rivers than what is right now?
+
+:But indeed, everything changes given enough time.
+Rivers appear and vanish given enough time.
+Tens of thousands of years ago, even this valley may not exist yet.
+
+:And not so long ago geologically, the whole Northern America was covered by snow!
+
+= tufa2
++!images/EROSION.png
+:You thought deeply about the scale of time.
+
+:As you proceed, the forests start to get denser.
+
+> memorial6
 
 
 = conclusion
++!images/EMPTY.png
+:You are reminded of the Poem "The Road Not Taken",
+by Robert Frost.
+
+:"Two roads diverged in a wood, and I,
+"I took the one less traveled by,
+"And that has made all the difference."
+
+:Each path you take leads to something different.
+The joy of detouring.
+
+:In the end, how many birds did you spot?
 
 > END
 
